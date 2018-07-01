@@ -1,12 +1,13 @@
-const path = require('path');
+const path = require("path");
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    filename: '[name]-bundle-[chunkhash].js',
-    path: path.resolve(__dirname, '../build')
+    filename: "[name]-bundle-[chunkhash].js",
+    path: path.resolve(__dirname, "../build")
   },
   module: {
     rules: [
@@ -14,14 +15,14 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader"
         }
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: 'html-loader'
+            loader: "html-loader"
           }
         ]
       },
@@ -29,13 +30,13 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: true,
-              localIdentName: '[name]__[local]__[hash:base64]'
+              localIdentName: "[name]__[local]__[hash:base64]"
             }
           }
         ]
@@ -45,17 +46,20 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       hash: true,
-      template: './public/index.html',
-      filename: './index.html'
+      template: "./public/index.html",
+      filename: "./index.html"
+    }),
+    new FriendlyErrorsWebpackPlugin({
+      clearConsole: true
     })
   ],
   resolve: {
     alias: {
-      ui: path.resolve(__dirname, 'src/ui'),
-      screens: path.resolve(__dirname, 'src/screens'),
-      components: path.resolve(__dirname, 'src/components'),
-      queries: path.resolve(__dirname, 'src/queries'),
-      mutations: path.resolve(__dirname, 'src/mutations')
+      ui: path.resolve(__dirname, "src/ui"),
+      screens: path.resolve(__dirname, "src/screens"),
+      components: path.resolve(__dirname, "src/components"),
+      queries: path.resolve(__dirname, "src/queries"),
+      mutations: path.resolve(__dirname, "src/mutations")
     }
   }
 };
